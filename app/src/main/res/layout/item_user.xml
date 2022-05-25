@@ -16,7 +16,8 @@
         android:contentDescription="@string/user_image_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/baseline_account_circle_24" />
+        tools:src="@drawable/baseline_account_circle_24"
+        android:src="@drawable/baseline_account_circle_24" />
 
     <TextView
         android:id="@+id/userNameTextView"
@@ -27,7 +28,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/photoImageView"
         app:layout_constraintTop_toTopOf="@id/photoImageView"
         tools:text="Maxim Boyko" />

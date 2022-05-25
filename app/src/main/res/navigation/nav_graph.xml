@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.borlanddev.natife_second.screens.list.ListFragment"
-        android:label="list_fragment"
+        android:label="List users"
         tools:layout="@layout/list_fragment" >
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.borlanddev.natife_second.screens.details.DetailsFragment"
-        android:label="details_fragnent"
+        android:label="Details information"
         tools:layout="@layout/details_fragnent" >
         <argument
             android:name="id"

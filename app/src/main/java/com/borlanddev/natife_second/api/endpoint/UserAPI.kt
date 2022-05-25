@@ -9,6 +9,6 @@ interface UserAPI {
 
     @GET("api/")
     fun fetchUsers(
-        @Query("?results") results: Int = 20
+        @Query("results") results: Int = 20
     ): Call<UserResponse>
 }

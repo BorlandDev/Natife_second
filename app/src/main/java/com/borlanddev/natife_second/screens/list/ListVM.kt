@@ -5,24 +5,26 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.borlanddev.natife_second.api.endpoint.UserAPI
 import com.borlanddev.natife_second.api.repository.Repository
 import com.borlanddev.natife_second.helpers.TAG_VM
 import com.borlanddev.natife_second.model.User
 
 class ListVM : ViewModel() {
+    private val repository = Repository()
+
     private val _userListLiveData = MutableLiveData<List<User>>(listOf())
     val userListLiveData: LiveData<List<User>> = _userListLiveData
 
     init {
-        if (_userListLiveData.value!!.isEmpty()) {
+        if (_userListLiveData.value?.isEmpty() == true) {
             getUsers()
 
-            Log.i(TAG_VM, _userListLiveData.value?.size.toString())
         }
     }
 
     private fun getUsers() {
-        Repository.getUsers(results = 20,
+        repository.getUsers(results = 20,
             {
                 _userListLiveData.value = it
             },

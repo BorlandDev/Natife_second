@@ -5,9 +5,11 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class UserDB(
-    @PrimaryKey val id: Int,
-//    val userName: UserName,
-//    val userEmail: UserEmail,
-//    val userPhone: UserPhone,
-//    val userPicture: UserPicture
+    @PrimaryKey val id: String,
+    val name: String,
+    val phone: String,
+    val email: String,
+    val location: String,
+    val picture: String,
+    val age: Int
 )

@@ -39,7 +39,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         listViewModel.userListLiveData.observe(
             viewLifecycleOwner
         ) {
-            userAdapter.getUserList(it)
+            userAdapter.setUserList(it)
         }
 
         with(binding) {
