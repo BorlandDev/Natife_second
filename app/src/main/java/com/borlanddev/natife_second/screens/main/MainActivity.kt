@@ -1,4 +1,4 @@
-package com.borlanddev.natife_second.screens
+package com.borlanddev.natife_second.screens.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

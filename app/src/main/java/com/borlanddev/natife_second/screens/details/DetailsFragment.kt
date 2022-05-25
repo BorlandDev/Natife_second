@@ -1,4 +1,4 @@
-package com.borlanddev.natife_second.screens
+package com.borlanddev.natife_second.screens.details
 
 import android.os.Bundle
 import android.view.View
