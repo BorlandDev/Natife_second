@@ -1,12 +1,9 @@
 package com.borlanddev.natife_second.screens.list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.adapter.UserAdapter
@@ -21,7 +18,6 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         binding = ListFragmentBinding.bind(view)
 
         val userAdapter = UserAdapter {
-
 //            val direction = ListFragmentDirections.actionListFragmentToDetailsFragment(it)
 //            findNavController().navigate(
 //                direction,

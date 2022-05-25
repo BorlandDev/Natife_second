@@ -9,6 +9,7 @@ import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.databinding.ItemUserBinding
 import com.borlanddev.natife_second.model.Name
 import com.borlanddev.natife_second.model.User
+import com.bumptech.glide.Glide
 
 class UserAdapter(private var onItemClick: (User) -> Unit) :
     RecyclerView.Adapter<UserHolder>() {
@@ -29,7 +30,7 @@ class UserAdapter(private var onItemClick: (User) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemUserBinding.inflate(inflater, parent, false)
-        return UserHolder(binding, parent.context)
+        return UserHolder(binding)
     }
 
     override fun onBindViewHolder(holder: UserHolder, position: Int) {
@@ -38,14 +39,18 @@ class UserAdapter(private var onItemClick: (User) -> Unit) :
     }
 }
 
-class UserHolder(private val binding: ItemUserBinding, val context: Context) :
+class UserHolder(private val binding: ItemUserBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(user: User, onUserClick: (User) -> Unit) {
+        Glide.with(itemView.context)
+            .load(user.picture?.large)
+            .circleCrop()
+            .placeholder(R.drawable.baseline_account_circle_24)
+            .error(R.drawable.baseline_account_circle_24)
+            .into(binding.imageListUser)
 
-        binding.userNameTextView.text = user.name?.let { getNameFormat(it, context) }
-
-        // Use to Glide for download images
+        binding.userNameTextView.text = user.name?.let { getNameFormat(it, itemView.context) }
 
         binding.itemUser.setOnClickListener {
             onUserClick.invoke(user)
@@ -55,6 +60,5 @@ class UserHolder(private val binding: ItemUserBinding, val context: Context) :
 
 private fun getNameFormat(userName: Name, context: Context): String {
     val (title, first, last) = userName
-
     return context.getString(R.string.user_name_format, title, first, last)
 }

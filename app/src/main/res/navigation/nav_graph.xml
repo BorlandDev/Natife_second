@@ -9,7 +9,7 @@
         android:id="@+id/listFragment"
         android:name="com.borlanddev.natife_second.screens.list.ListFragment"
         android:label="List users"
-        tools:layout="@layout/list_fragment" >
+        tools:layout="@layout/list_fragment">
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.borlanddev.natife_second.screens.details.DetailsFragment"
         android:label="Details information"
-        tools:layout="@layout/details_fragnent" >
+        tools:layout="@layout/details_fragnent">
         <argument
             android:name="id"
             app:argType="integer" />

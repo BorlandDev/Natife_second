@@ -11,7 +11,7 @@ data class User(
     val location: Location?,
     val picture: Picture?,
     @SerializedName("dob") val age: Age?,
-    )
+)
 
 data class Name(
     val title: String,
@@ -21,7 +21,7 @@ data class Name(
 
 data class Age(
     val age: Int
-    )
+)
 
 data class Location(
     val city: String,
@@ -30,7 +30,6 @@ data class Location(
 )
 
 data class Picture(
-    val thumbnail: String,
     val large: String
 )
 

@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Repository(val userApi: UserAPI = RetrofitClient.userAPI) {
+class Repository(private val userApi: UserAPI = RetrofitClient.userAPI) {
 
     fun getUsers(
         results: Int,
