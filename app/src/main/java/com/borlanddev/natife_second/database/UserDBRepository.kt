@@ -1,10 +1,10 @@
 package com.borlanddev.natife_second.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.borlanddev.natife_second.helpers.DATABASE_NAME
 import com.borlanddev.natife_second.model.UserDB
+import java.util.concurrent.Executors
 
 class UserDBRepository private constructor(context: Context) {
 
@@ -17,9 +17,13 @@ class UserDBRepository private constructor(context: Context) {
 
     private val userDao = database.userDao()
 
-    fun getUsersDB(): LiveData<MutableList<UserDB>> = userDao.getUsersDB()
+    private val executor = Executors.newSingleThreadExecutor()
 
-    fun getUserDB(id: String): LiveData<UserDB?> = userDao.getUserDB(id)
+    fun getUsersDB(): List<UserDB> = userDao.getUsersDB()
+
+    fun getUserDB(id: String): UserDB? = userDao.getUserDB(id)
+
+    fun addUserDB(user: UserDB) = executor.execute { userDao.addUserDB(user) }
 
     companion object {
         private var INSTANCE: UserDBRepository? = null

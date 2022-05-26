@@ -11,5 +11,5 @@ data class UserDB(
     val email: String,
     val location: String,
     val picture: String,
-    val age: Int
+    val age: String
 )

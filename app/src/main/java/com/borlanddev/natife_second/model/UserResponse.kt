@@ -5,12 +5,17 @@ import com.google.gson.annotations.SerializedName
 data class UserResponse(val results: List<User>?)
 
 data class User(
+    @SerializedName("login") val id: Id?,
     val name: Name?,
     val phone: String?,
     val email: String?,
     val location: Location?,
     val picture: Picture?,
     @SerializedName("dob") val age: Age?,
+)
+
+data class Id(
+    val uuid: String
 )
 
 data class Name(
