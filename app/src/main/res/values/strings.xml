@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Natife_second</string>
     <string name="user_image_description">User image</string>
+    <string name="user_avatar">user_avatar</string>
+
     <string name="user_name_format">%1$s %2$s %3$s</string>
+    <string name="user_age_format">Age: %1$s years ago</string>
+    <string name="user_phone_format">Phone: %1$s</string>
+    <string name="user_email_format">Email: %1$s \n</string>
+    <string name="user_location_format"> country: %1$s \n
+                                    state: \n %2$s  \n city: %3$s</string>
+    <string name="location_hint">Location:</string>
+
 </resources>

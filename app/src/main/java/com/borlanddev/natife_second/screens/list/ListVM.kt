@@ -43,8 +43,8 @@ class ListVM : ViewModel() {
         val name = "$title $first $last"
         val phone = user.phone.toString()
         val email = user.email.toString()
-        val location =
-            "${user.location?.city} \n ${user.location?.state} \n ${user.location?.county}"
+        val (country, state, city) = user.location!!
+        val location = " country: $country \n state: $state \n $city: Huston"
         val picture = user.picture?.large.toString()
         val age = user.age?.age.toString()
 

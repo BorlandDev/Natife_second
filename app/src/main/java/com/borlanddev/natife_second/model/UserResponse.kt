@@ -29,9 +29,9 @@ data class Age(
 )
 
 data class Location(
-    val city: String,
+    val country: String,
     val state: String,
-    val county: String
+    val city: String
 )
 
 data class Picture(

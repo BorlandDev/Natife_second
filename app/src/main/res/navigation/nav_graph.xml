@@ -19,8 +19,9 @@
         android:name="com.borlanddev.natife_second.screens.details.DetailsFragment"
         android:label="Details information"
         tools:layout="@layout/details_fragnent">
+
         <argument
             android:name="id"
-            app:argType="integer" />
+            app:argType="string" />
     </fragment>
 </navigation>

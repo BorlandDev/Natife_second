@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.adapter.UserAdapter
@@ -18,26 +20,23 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         binding = ListFragmentBinding.bind(view)
 
         val userAdapter = UserAdapter {
-//            val direction = ListFragmentDirections.actionListFragmentToDetailsFragment(it)
-//            findNavController().navigate(
-//                direction,
-//                navOptions {
-//                    anim {
-//                        enter = R.anim.enter
-//                        exit = R.anim.exit
-//                        popEnter = R.anim.pop_enter
-//                        popExit = R.anim.pop_exit
-//                    }
-//                })
+            val direction = ListFragmentDirections.actionListFragmentToDetailsFragment(it.id)
+            findNavController().navigate(
+                direction,
+                navOptions {
+                    anim {
+                        enter = R.anim.enter
+                        exit = R.anim.exit
+                        popEnter = R.anim.pop_enter
+                        popExit = R.anim.pop_exit
+                    }
+                })
         }
 
         // Make extension to LiveData
         listViewModel.userListLiveData.observe(
             viewLifecycleOwner
-        ) {
-
-            userAdapter.setUserList(it)
-        }
+        ) { userAdapter.setUserList(it) }
 
         with(binding) {
             recyclerView.layoutManager = LinearLayoutManager(context)
