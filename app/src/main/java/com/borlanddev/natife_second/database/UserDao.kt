@@ -15,5 +15,5 @@ interface UserDao {
     fun getUserDB(id: String): UserDB?
 
     @Insert
-    fun addUserDB(user: UserDB)
+    fun addUsersDB(users: List<UserDB>)
 }

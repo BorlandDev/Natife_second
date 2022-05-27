@@ -12,8 +12,8 @@ import com.borlanddev.natife_second.adapter.UserAdapter
 import com.borlanddev.natife_second.databinding.ListFragmentBinding
 
 class ListFragment : Fragment(R.layout.list_fragment) {
-    private lateinit var binding: ListFragmentBinding
-    private val listViewModel by viewModels<ListVM>()
+    private var binding: ListFragmentBinding? = null
+    private val listVM: ListVM by viewModels { factory() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,16 +33,17 @@ class ListFragment : Fragment(R.layout.list_fragment) {
                 })
         }
 
-        // Make extension to LiveData
-        listViewModel.userListLiveData.observe(
+        listVM.userListLiveData.observe(
             viewLifecycleOwner
-        ) { userAdapter.setUserList(it) }
+        ) { userAdapter.submitList(it) }
+        //) { userAdapter.setUserList(it) }
 
-        with(binding) {
+        binding?.apply {
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = userAdapter
         }
     }
 }
+
 
 

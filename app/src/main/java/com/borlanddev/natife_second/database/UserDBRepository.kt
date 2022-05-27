@@ -1,35 +1,24 @@
 package com.borlanddev.natife_second.database
 
-import android.content.Context
-import androidx.room.Room
-import com.borlanddev.natife_second.helpers.DATABASE_NAME
 import com.borlanddev.natife_second.model.UserDB
 import java.util.concurrent.Executors
 
-class UserDBRepository private constructor(context: Context) {
-
-    private val database = Room.databaseBuilder(
-        context.applicationContext,
-        UserDatabase::class.java,
-        DATABASE_NAME
-    )
-        .build()
-
+class UserDBRepository private constructor(_database: UserDatabase) {
+    private val database = _database
     private val userDao = database.userDao()
-
     private val executor = Executors.newSingleThreadExecutor()
 
     fun getUsersDB(): List<UserDB> = userDao.getUsersDB()
 
     fun getUserDB(id: String): UserDB? = userDao.getUserDB(id)
 
-    fun addUserDB(user: UserDB) = executor.execute { userDao.addUserDB(user) }
+    fun addUsersDB(users: List<UserDB>) = executor.execute { userDao.addUsersDB(users) }
 
     companion object {
         private var INSTANCE: UserDBRepository? = null
 
-        fun initialize(context: Context) {
-            if (INSTANCE == null) INSTANCE = UserDBRepository(context)
+        fun initialize(_database: UserDatabase) {
+            if (INSTANCE == null) INSTANCE = UserDBRepository(_database)
         }
 
         fun get(): UserDBRepository {

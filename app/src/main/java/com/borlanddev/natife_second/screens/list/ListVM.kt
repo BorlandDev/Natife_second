@@ -11,9 +11,9 @@ import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
 import kotlin.concurrent.thread
 
-class ListVM : ViewModel() {
-    private val repository = Repository()
-    private val userDBRepository = UserDBRepository.get()
+class ListVM(private val userDBRepository: UserDBRepository,
+             private val repository: Repository)
+    : ViewModel() {
     private val _userListLiveData = MutableLiveData<List<UserDB>>(listOf())
     val userListLiveData: LiveData<List<UserDB>> = _userListLiveData
 
@@ -23,10 +23,10 @@ class ListVM : ViewModel() {
     }
 
     private fun getUsers() {
-        repository.getUsers(results = 20,
+        repository.getUsers(results = 30,
             {
                 val users = it.map { user -> userToUserDB(user) }
-                users.map { user -> userDBRepository.addUserDB(user) }
+                userDBRepository.addUsersDB(users)
                 _userListLiveData.value = users
             },
             {
@@ -37,17 +37,13 @@ class ListVM : ViewModel() {
         )
     }
 
-    private fun userToUserDB(user: User): UserDB {
-        val id = user.id?.uuid.toString()
-        val (title, first, last) = user.name!!
-        val name = "$title $first $last"
-        val phone = user.phone.toString()
-        val email = user.email.toString()
-        val (country, state, city) = user.location!!
-        val location = " country: $country \n state: $state \n $city: Huston"
-        val picture = user.picture?.large.toString()
-        val age = user.age?.age.toString()
-
-        return UserDB(id, name, phone, email, location, picture, age)
-    }
+    private fun userToUserDB(user: User) = UserDB(
+        id = user.id?.uuid.toString(),
+        phone = user.phone.toString(),
+        email = user.email.toString(),
+        age = user.age?.age.toString(),
+        picture = user.picture?.large.toString(),
+        name = "${user.name?.title} ${user.name?.first} ${user.name?.last}",
+        location = " ${user.location?.country} \n ${user.location?.state} \n ${user.location?.city}"
+    )
 }
