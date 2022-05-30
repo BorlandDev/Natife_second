@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.borlanddev.natife_second.R
-import com.borlanddev.natife_second.adapter.UsersDiffCallback
+import com.borlanddev.natife_second.adapter.UserAdapter
 import com.borlanddev.natife_second.databinding.ListFragmentBinding
 
 class ListFragment : Fragment(R.layout.list_fragment) {
@@ -19,7 +19,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = ListFragmentBinding.bind(view)
 
-        val userAdapter = UsersDiffCallback.UserAdapter(onItemClick = {
+        val userAdapter = UserAdapter(onItemClick = {
             val direction = ListFragmentDirections.actionListFragmentToDetailsFragment(it.id)
             findNavController().navigate(
                 direction,
@@ -38,7 +38,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         listVM.userListLiveData.observe(
             viewLifecycleOwner
         ) {
-            userAdapter.setUserList(it)
+            userAdapter.submitList(it)
         }
 
         binding?.apply {

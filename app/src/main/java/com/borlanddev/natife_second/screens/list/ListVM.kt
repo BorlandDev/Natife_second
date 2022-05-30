@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.borlanddev.natife_second.api.repository.Repository
 import com.borlanddev.natife_second.database.UserDBRepository
+import com.borlanddev.natife_second.helpers.PAGE_SIZE
 import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
 import kotlin.concurrent.thread
@@ -24,22 +25,21 @@ class ListVM(
     }
 
     fun getUsers() {
-        val pageIndex = (_userListLiveData.value?.size ?: 0) / 15 + 1
+        val pageIndex = (_userListLiveData.value?.size ?: 0) / PAGE_SIZE + 1
         repository.getUsers(
             pageIndex = pageIndex,
-            results = 15,
+            results = PAGE_SIZE,
             {
                 val users = it.map { user -> userToUserDB(user) }
 
                 val currentUsers = _userListLiveData.value ?: emptyList()
                 _userListLiveData.value = currentUsers + users
 
-                userDBRepository.clearDB()
-                userDBRepository.addUsersDB(currentUsers + users)
+                if (pageIndex == 1) userDBRepository.clearDB()
+                userDBRepository.addUsersDB(users)
             },
             {
                 Log.d(TAG, "FAILURE LOAD $it")
-
                 thread { _userListLiveData.postValue(userDBRepository.getUsersDB()) }
             }
         )

@@ -1,9 +1,9 @@
 package com.borlanddev.natife_second.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.databinding.ItemUserBinding
@@ -11,62 +11,11 @@ import com.borlanddev.natife_second.helpers.PREFETCH_DISTANCE
 import com.borlanddev.natife_second.model.UserDB
 import com.bumptech.glide.Glide
 
-class UsersDiffCallback(
-    private val oldList: List<UserDB>,
-    private val newList: List<UserDB>
-) : DiffUtil.Callback() {
-
-    override fun getOldListSize(): Int = oldList.size
-    override fun getNewListSize(): Int = newList.size
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldUser = oldList[oldItemPosition]
-        val newUser = newList[newItemPosition]
-        return oldUser.id == newUser.id
-    }
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldUser = oldList[oldItemPosition]
-        val newUser = newList[newItemPosition]
-        return oldUser == newUser
-    }
-
-
-    class UserAdapter(
-        private var onItemClick: (UserDB) -> Unit,
-        private val onPageEndReached: () -> Unit
-    ) :
-        RecyclerView.Adapter<UserHolder>() {
-
-        private var users: List<UserDB> = emptyList()
-            @SuppressLint("NotifyDataSetChanged")
-            set(newValue) {
-                val diffCallback = UsersDiffCallback(field, newValue)
-                val diffResult = DiffUtil.calculateDiff(diffCallback)
-                field = newValue
-                diffResult.dispatchUpdatesTo(this)
-            }
-
-        fun setUserList(_user: List<UserDB>) {
-            users = _user
-        }
-
-        override fun getItemCount(): Int = users.size
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val binding = ItemUserBinding.inflate(inflater, parent, false)
-            return UserHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: UserHolder, position: Int) {
-            val user = users[position]
-            holder.bind(user, onItemClick)
-            if (itemCount - position == PREFETCH_DISTANCE) {
-                onPageEndReached.invoke()
-            }
-        }
-    }
+class UserAdapter(
+    private var onItemClick: (UserDB) -> Unit,
+    private val onPageEndReached: () -> Unit
+) :
+    ListAdapter<UserDB, UserAdapter.UserHolder>(UsersDiffCallback()) {
 
     class UserHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -84,6 +33,41 @@ class UsersDiffCallback(
             binding.itemUser.setOnClickListener {
                 onUserClick.invoke(user)
             }
+        }
+
+        companion object {
+            fun create(parent: ViewGroup): UserHolder {
+                return UserHolder(
+                    ItemUserBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+        }
+    }
+
+    class UsersDiffCallback
+        : DiffUtil.ItemCallback<UserDB>() {
+
+        override fun areItemsTheSame(oldItem: UserDB, newItem: UserDB): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: UserDB, newItem: UserDB): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
+        return UserHolder.create(parent)
+    }
+
+    override fun onBindViewHolder(holder: UserHolder, position: Int) {
+        holder.bind(getItem(position), onItemClick)
+        if (itemCount - position == PREFETCH_DISTANCE) {
+            onPageEndReached.invoke()
         }
     }
 }
