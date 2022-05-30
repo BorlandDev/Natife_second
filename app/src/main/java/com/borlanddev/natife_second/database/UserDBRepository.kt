@@ -14,6 +14,8 @@ class UserDBRepository private constructor(_database: UserDatabase) {
 
     fun addUsersDB(users: List<UserDB>) = executor.execute { userDao.addUsersDB(users) }
 
+    fun clearDB() = executor.execute { userDao.clearDB() }
+
     companion object {
         private var INSTANCE: UserDBRepository? = null
 

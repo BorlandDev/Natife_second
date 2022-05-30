@@ -1,8 +1,7 @@
 package com.borlanddev.natife_second.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.borlanddev.natife_second.helpers.DATABASE_NAME
 import com.borlanddev.natife_second.model.UserDB
 
 @Dao
@@ -16,4 +15,7 @@ interface UserDao {
 
     @Insert
     fun addUsersDB(users: List<UserDB>)
+
+    @Query("DELETE FROM UserDB")
+    fun clearDB()
 }

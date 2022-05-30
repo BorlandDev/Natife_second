@@ -11,9 +11,10 @@ import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
 import kotlin.concurrent.thread
 
-class ListVM(private val userDBRepository: UserDBRepository,
-             private val repository: Repository)
-    : ViewModel() {
+class ListVM(
+    private val userDBRepository: UserDBRepository,
+    private val repository: Repository
+) : ViewModel() {
     private val _userListLiveData = MutableLiveData<List<UserDB>>(listOf())
     val userListLiveData: LiveData<List<UserDB>> = _userListLiveData
 
@@ -22,12 +23,19 @@ class ListVM(private val userDBRepository: UserDBRepository,
             getUsers()
     }
 
-    private fun getUsers() {
-        repository.getUsers(results = 30,
+    fun getUsers() {
+        val pageIndex = (_userListLiveData.value?.size ?: 0) / 15 + 1
+        repository.getUsers(
+            pageIndex = pageIndex,
+            results = 15,
             {
                 val users = it.map { user -> userToUserDB(user) }
-                userDBRepository.addUsersDB(users)
-                _userListLiveData.value = users
+
+                val currentUsers = _userListLiveData.value ?: emptyList()
+                _userListLiveData.value = currentUsers + users
+
+                userDBRepository.clearDB()
+                userDBRepository.addUsersDB(currentUsers + users)
             },
             {
                 Log.d(TAG, "FAILURE LOAD $it")

@@ -9,6 +9,7 @@ interface UserAPI {
 
     @GET("api/")
     fun fetchUsers(
-        @Query("results") results: Int
+        @Query("page") pageIndex: Int,
+        @Query("results") pageSize: Int
     ): Call<UserResponse>
 }
