@@ -1,6 +1,5 @@
 package com.borlanddev.natife_second.screens.list
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.borlanddev.natife_second.api.repository.Repository
@@ -17,4 +16,4 @@ class ListVMFactory(
     }
 }
 
-fun Fragment.factory() = ListVMFactory(UserDBRepository.get(), Repository())
+fun factory() = ListVMFactory(UserDBRepository.get(), Repository())

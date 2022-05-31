@@ -20,6 +20,7 @@ class ListVM(
     private val _userListLiveData = MutableLiveData<List<UserDB>>(listOf())
     val userListLiveData: LiveData<List<UserDB>> = _userListLiveData
     private var offset = 0
+    private var accUsers: List<UserDB> = listOf()
 
     init {
         if (_userListLiveData.value?.isEmpty() == true)
@@ -44,10 +45,10 @@ class ListVM(
                 Log.d(TAG, "FAILURE LOAD $it")
 
                 thread {
-                    _userListLiveData.postValue(
-                        userDBRepository.getUsersDB(LIMIT_USER, offset)
-                    )
-                    offset += 15
+                    val currentUsers = userDBRepository.getUsersDB(LIMIT_USER, offset)
+                    accUsers = accUsers + currentUsers
+                    _userListLiveData.postValue(accUsers)
+                    offset += currentUsers.size
                 }
             }
         )
