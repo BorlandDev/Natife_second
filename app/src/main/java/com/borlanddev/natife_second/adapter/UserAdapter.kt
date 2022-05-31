@@ -17,6 +17,17 @@ class UserAdapter(
 ) :
     ListAdapter<UserDB, UserAdapter.UserHolder>(UsersDiffCallback()) {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
+        return UserHolder.create(parent)
+    }
+
+    override fun onBindViewHolder(holder: UserHolder, position: Int) {
+        holder.bind(getItem(position), onItemClick)
+        if (itemCount - position == PREFETCH_DISTANCE) {
+            onPageEndReached.invoke()
+        }
+    }
+
     class UserHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -57,17 +68,6 @@ class UserAdapter(
 
         override fun areContentsTheSame(oldItem: UserDB, newItem: UserDB): Boolean {
             return oldItem == newItem
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
-        return UserHolder.create(parent)
-    }
-
-    override fun onBindViewHolder(holder: UserHolder, position: Int) {
-        holder.bind(getItem(position), onItemClick)
-        if (itemCount - position == PREFETCH_DISTANCE) {
-            onPageEndReached.invoke()
         }
     }
 }
