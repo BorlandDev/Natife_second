@@ -4,5 +4,4 @@ const val BASE_URL = "https://randomuser.me/"
 const val DATABASE_NAME = "user_database"
 const val PREFETCH_DISTANCE = 3
 const val PAGE_SIZE = 15
-const val LIMIT_USER = 15
 

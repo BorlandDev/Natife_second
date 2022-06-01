@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.borlanddev.natife_second.api.repository.Repository
 import com.borlanddev.natife_second.database.UserDBRepository
-import com.borlanddev.natife_second.helpers.LIMIT_USER
 import com.borlanddev.natife_second.helpers.PAGE_SIZE
 import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
@@ -23,8 +22,7 @@ class ListVM(
     private var accUsers: List<UserDB> = listOf()
 
     init {
-        if (_userListLiveData.value?.isEmpty() == true)
-            getUsers()
+        getUsers()
     }
 
     fun getUsers() {
@@ -45,7 +43,7 @@ class ListVM(
                 Log.d(TAG, "FAILURE LOAD $it")
 
                 thread {
-                    val currentUsers = userDBRepository.getUsersDB(LIMIT_USER, offset)
+                    val currentUsers = userDBRepository.getUsersDB(PAGE_SIZE, offset)
                     accUsers = accUsers + currentUsers
                     _userListLiveData.postValue(accUsers)
                     offset += currentUsers.size

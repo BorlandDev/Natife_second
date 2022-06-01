@@ -1,23 +1,28 @@
 package com.borlanddev.natife_second.screens.list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.Fragment
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.adapter.UserAdapter
+import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.ListFragmentBinding
 
-class ListFragment : Fragment(R.layout.list_fragment) {
-    private var binding: ListFragmentBinding? = null
-    private val listVM: ListVM by viewModels { factory() }
+class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
+
+    override val bindingInflation =
+        { inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean ->
+            ListFragmentBinding.inflate(inflater, container, attachToParent)
+        }
+    override val viewModel: ListVM by viewModels { factory() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = ListFragmentBinding.bind(view)
 
         val userAdapter = UserAdapter(onItemClick = {
             val direction = ListFragmentDirections.actionListFragmentToDetailsFragment(it.id)
@@ -32,16 +37,14 @@ class ListFragment : Fragment(R.layout.list_fragment) {
                     }
                 })
         }, onPageEndReached = {
-            listVM.getUsers()
+            viewModel.getUsers()
         })
 
-        listVM.userListLiveData.observe(
-            viewLifecycleOwner
-        ) {
+        viewModel.userListLiveData.subscribe {
             userAdapter.submitList(it)
         }
 
-        binding?.apply {
+        binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = userAdapter
         }
