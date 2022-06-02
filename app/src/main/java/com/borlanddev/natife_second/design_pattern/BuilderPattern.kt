@@ -3,7 +3,7 @@ package com.borlanddev.natife_second.design_pattern
 import androidx.room.PrimaryKey
 
 fun main() {
-    val user1 = UserDB.Builder()
+    val user1 = UserDB().Builder()
         .withID("522")
         .withName("Maxim Boyko")
         .withPhone("099-282-5240")
@@ -12,36 +12,28 @@ fun main() {
         .withAge("24")
         .build()
 
-    // DSL
-    val user2 = UserDB.Builder().userBuilder {
-        id = "522"
-        name = "Max"
-        phone = "55-33-22"
-        email = "myEmail.com"
-        location = "Somewhere"
-        age = "19"
+    val user2 = UserDB().Builder().userBuilder {
+        withID("522")
+        withName("Max")
+        withPhone("55-33-22")
+        withEmail("myEmail.com")
+        withLocation("Somewhere")
+        withAge("19")
     }
 }
 
 
-data class UserDB (
-    @PrimaryKey val id: String?,
-    val name: String,
-    val phone: String,
-    val email: String,
-    val location: String,
-    val picture: String,
-    val age: String
+data class UserDB(
+    @PrimaryKey var id: String = "",
+    var name: String = "",
+    var phone: String = "",
+    var email: String = "",
+    var location: String = "",
+    var picture: String = "",
+    var age: String = ""
 ) {
-    class Builder(
-        var id: String? = "",
-        var name: String? = "",
-        var phone: String? = "",
-        var email: String? = "",
-        var location: String? = "",
-        var picture: String? = "https:testPhotoUser/large",
-        var age: String? = ""
-    ) {
+
+    inner class Builder() {
         fun withID(v: String) = apply { id = v }
         fun withName(v: String) = apply { name = v }
         fun withPhone(v: String) = apply { phone = v }
@@ -50,12 +42,12 @@ data class UserDB (
         fun withAge(v: String) = apply { age = v }
 
         fun build() =
-            Builder(
+            UserDB(
                 id, name, phone,
                 email, location, picture, age
             )
 
-        fun userBuilder(init: Builder.() -> Unit) = Builder()
+        fun userBuilder(init: UserDB.Builder.() -> Unit) = Builder()
             .apply(init)
             .build()
     }

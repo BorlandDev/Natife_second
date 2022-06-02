@@ -4,34 +4,32 @@ fun main() {
     val player1 = Player("player1")
     val player2 = Player("player2")
     val player3 = Player("player3")
-    val player4 = Player("player4")
 
-    GameConfig.addPlayer(player1, player2, player3)
-    GameConfig.showAmountPlayers()
+    val gameConfig = GameConfig.getInstance()
 
-    GameConfig.addPlayer(player4)
-    UseSingleton().show()
+    gameConfig.addPlayer(player1, player2, player3)
+    gameConfig.showAmountPlayers()
 }
-
 
 class Player(val name: String)
 
-class UseSingleton {
-    fun show() {
-        GameConfig.showAmountPlayers()
-    }
-}
-
-object GameConfig {
+class GameConfig private constructor() {
     private var players: List<Player> = listOf()
 
     init { println("Amount players: ${players.size}") }
 
     fun showAmountPlayers() = println("Amount players: ${players.size}")
 
-    fun addPlayer(vararg player: Player) {
-        players = players + player
-    }
+    fun addPlayer(vararg player: Player) { players = players + player }
+
+    companion object {
+        @Volatile
+        private var instance: GameConfig? = null
+
+        fun getInstance() =
+            instance ?: synchronized(this) {
+                instance ?: GameConfig().also { instance = it }
+            }
+        }
+
 }
-
-
