@@ -1,53 +1,66 @@
 package com.borlanddev.natife_second.design_pattern
 
-import androidx.room.PrimaryKey
-
 fun main() {
-    val user1 = UserDB().Builder()
-        .withID("522")
-        .withName("Maxim Boyko")
-        .withPhone("099-282-5240")
-        .withEmail("Minsk1115596@gmail.com")
-        .withLocation("Mariupol")
-        .withAge("24")
+    val user1 = UserDB.Builder()
+        .id("522")
+        .name("Maxim Boyko")
+        .phone("099-282-5240")
+        .email("Minsk1115596@gmail.com")
+        .location("Mariupol")
+        .age("24")
         .build()
 
-    val user2 = UserDB().Builder().userBuilder {
-        withID("522")
-        withName("Max")
-        withPhone("55-33-22")
-        withEmail("myEmail.com")
-        withLocation("Somewhere")
-        withAge("19")
+    val user2 = UserDB.Builder().userBuilder {
+        id("522")
+        name("Max")
+        phone("55-33-22")
+        email("myEmail.com")
+        location("Somewhere")
+        age("19")
     }
+
+    println(user1)
+    println(user2)
 }
 
 
 data class UserDB(
-    @PrimaryKey var id: String = "",
-    var name: String = "",
-    var phone: String = "",
-    var email: String = "",
-    var location: String = "",
-    var picture: String = "",
-    var age: String = ""
+    val id: String,
+    val name: String,
+    val phone: String,
+    val email: String,
+    val location: String,
+    val age: String,
+    val company: String
 ) {
 
-    inner class Builder() {
-        fun withID(v: String) = apply { id = v }
-        fun withName(v: String) = apply { name = v }
-        fun withPhone(v: String) = apply { phone = v }
-        fun withEmail(v: String) = apply { email = v }
-        fun withLocation(v: String) = apply { location = v }
-        fun withAge(v: String) = apply { age = v }
+    class Builder {
+        private var id: String = ""
+        private var name: String = ""
+        private var phone: String = ""
+        private var email: String = ""
+        private var location: String = ""
+        private var age: String = ""
+        private var company = "Natife"
 
-        fun build() =
-            UserDB(
-                id, name, phone,
-                email, location, picture, age
-            )
+        fun id(v: String) = apply { id = v }
+        fun name(v: String) = apply { name = v }
+        fun phone(v: String) = apply { phone = v }
+        fun email(v: String) = apply { email = v }
+        fun location(v: String) = apply { location = v }
+        fun age(v: String) = apply { age = v }
 
-        fun userBuilder(init: UserDB.Builder.() -> Unit) = Builder()
+        fun build() = UserDB(
+            id = id,
+            name = name,
+            phone = phone,
+            email = email,
+            location = location,
+            age = age,
+            company = company
+        )
+
+        fun userBuilder(init: Builder.() -> Unit) = Builder()
             .apply(init)
             .build()
     }
