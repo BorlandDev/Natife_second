@@ -52,6 +52,7 @@ class ListVM(
         )
     }
 
+    // Считается ли это за адаптер ?
     private fun userToUserDB(user: User) = UserDB(
         id = user.id?.uuid.toString(),
         phone = user.phone.toString(),

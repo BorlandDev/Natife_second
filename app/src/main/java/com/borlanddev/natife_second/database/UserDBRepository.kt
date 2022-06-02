@@ -8,7 +8,6 @@ class UserDBRepository private constructor(_database: UserDatabase) {
     private val userDao = database.userDao()
     private val executor = Executors.newSingleThreadExecutor()
 
-
     fun getUsersDB(limit: Int, offset: Int): List<UserDB> = userDao.getUsersDB(limit, offset)
 
     fun getUserDB(id: String): UserDB? = userDao.getUserDB(id)
