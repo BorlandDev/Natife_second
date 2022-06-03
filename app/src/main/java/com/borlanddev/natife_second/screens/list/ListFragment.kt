@@ -19,7 +19,8 @@ class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
         { inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean ->
             ListFragmentBinding.inflate(inflater, container, attachToParent)
         }
-    override val viewModel: ListVM by viewModels { factory() }
+
+    override val viewModel: ListVM by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +38,7 @@ class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
                     }
                 })
         }, onPageEndReached = {
-            viewModel.getUsers()
+            viewModel.getUserFromRepository()
         })
 
         viewModel.userListLiveData.subscribe {

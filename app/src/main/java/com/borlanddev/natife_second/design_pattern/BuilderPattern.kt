@@ -1,5 +1,7 @@
 package com.borlanddev.natife_second.design_pattern
 
+/*
+
 fun main() {
     val user1 = UserDB.Builder()
         .id("522")
@@ -67,5 +69,7 @@ data class UserDB(
 }
 
 
+
+ */
 
 

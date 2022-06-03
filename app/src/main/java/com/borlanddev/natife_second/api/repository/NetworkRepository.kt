@@ -8,13 +8,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Repository(private val userApi: UserAPI = RetrofitClient.userAPI) {
+class NetworkRepository(private val userApi: UserAPI = RetrofitClient.userAPI) {
 
     fun getUsers(
         pageIndex: Int,
         results: Int,
         onSuccess: (List<User>) -> Unit,
-        onFailure: (msg: String) -> Unit,
+        onFailure: (msg: String) -> Unit
     ) {
         userApi.fetchUsers(pageIndex, results).enqueue(object : Callback<UserResponse> {
 

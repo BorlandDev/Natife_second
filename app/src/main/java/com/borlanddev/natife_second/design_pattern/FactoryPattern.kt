@@ -1,5 +1,7 @@
 package com.borlanddev.natife_second.design_pattern
 
+/*
+
 fun main() {
     val itemTest = ItemFactory().create()
     val itemTest2 = ItemFactory().createFromId(2)
@@ -20,3 +22,6 @@ class ItemFactory {
         return ItemTest(id, "name_$id", "item $id description")
     }
 }
+
+
+ */

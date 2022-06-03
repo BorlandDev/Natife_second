@@ -1,4 +1,5 @@
 package com.borlanddev.natife_second.design_pattern
+/*
 
 fun main() {
     val player1 = Player("player1")
@@ -33,3 +34,6 @@ class GameConfig private constructor() {
         }
 
 }
+
+
+ */

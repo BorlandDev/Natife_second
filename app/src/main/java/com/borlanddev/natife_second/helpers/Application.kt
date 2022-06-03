@@ -12,7 +12,8 @@ class Application : Application() {
         val database = Room.databaseBuilder(
             this,
             UserDatabase::class.java,
-            DATABASE_NAME )
+            DATABASE_NAME
+        )
             .build()
 
         UserDBRepository.initialize(database)

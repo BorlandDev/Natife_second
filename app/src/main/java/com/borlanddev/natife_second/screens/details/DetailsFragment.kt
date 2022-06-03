@@ -8,22 +8,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.base.BaseFragment
-import com.borlanddev.natife_second.database.UserDBRepository
 import com.borlanddev.natife_second.databinding.DetailsFragnentBinding
 import com.bumptech.glide.Glide
 
 class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
 
-    override val bindingInflation = { inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean ->
+    override val bindingInflation =
+        { inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean ->
             DetailsFragnentBinding.inflate(inflater, container, attachToParent)
         }
     private val args: DetailsFragmentArgs by navArgs()
-    override val viewModel: DetailsVM by viewModels {
-        DetailsVMFactory(
-            UserDBRepository.get(),
-            args.id
-        )
-    }
+    override val viewModel: DetailsVM by viewModels { DetailsVMFactory(args.id) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
