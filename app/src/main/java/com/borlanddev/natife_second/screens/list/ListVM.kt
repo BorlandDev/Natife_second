@@ -9,23 +9,26 @@ import com.borlanddev.natife_second.model.UserDB
 
 class ListVM : ViewModel() {
     private val _userListLiveData = MutableLiveData<List<UserDB>>(listOf())
-    private val pageIndex = (_userListLiveData.value?.size ?: 0) / PAGE_SIZE + 1
-    private val currentUsers = _userListLiveData.value ?: emptyList()
-    private val mainRepository = MainRepository.getInstance()
     val userListLiveData: LiveData<List<UserDB>> = _userListLiveData
+    private val mainRepository = MainRepository.getInstance()
+    private val pageIndex = (_userListLiveData.value?.size ?: 0) / PAGE_SIZE + 1
+    private var offset = 0
 
     init {
-        getUserFromRepository()
+        getUsers()
     }
 
-    fun getUserFromRepository() {
-        val res = mainRepository.getUsers(pageIndex, currentUsers)
-
-        if (res == "Net") {
-            _userListLiveData.value = mainRepository.resultUsersFromNetwork
-        } else {
-            _userListLiveData.postValue(mainRepository.resultUsersFromDB)
-        }
+    fun getUsers() {
+        mainRepository.getUsersFromMainRepository(
+            pageIndex,
+            offset,
+            {
+                val currentUsers = _userListLiveData.value ?: emptyList()
+                _userListLiveData.value = currentUsers + it
+            }, {
+                _userListLiveData.postValue(it)
+                // обновить offset
+            })
     }
 
 }

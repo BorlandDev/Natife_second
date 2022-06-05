@@ -12,11 +12,11 @@ class NetworkRepository(private val userApi: UserAPI = RetrofitClient.userAPI) {
 
     fun getUsers(
         pageIndex: Int,
-        results: Int,
+        pageSize: Int,
         onSuccess: (List<User>) -> Unit,
         onFailure: (msg: String) -> Unit
     ) {
-        userApi.fetchUsers(pageIndex, results).enqueue(object : Callback<UserResponse> {
+        userApi.fetchUsers(pageIndex, pageSize).enqueue(object : Callback<UserResponse> {
 
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {

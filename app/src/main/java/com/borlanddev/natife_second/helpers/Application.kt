@@ -16,6 +16,6 @@ class Application : Application() {
         )
             .build()
 
-        UserDBRepository.initialize(database)
+        UserDBRepository.initialize(database.userDao())
     }
 }

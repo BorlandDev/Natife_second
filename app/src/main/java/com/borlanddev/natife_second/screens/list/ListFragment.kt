@@ -38,7 +38,7 @@ class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
                     }
                 })
         }, onPageEndReached = {
-            viewModel.getUserFromRepository()
+            viewModel.getUsers()
         })
 
         viewModel.userListLiveData.subscribe {
