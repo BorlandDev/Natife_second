@@ -8,30 +8,32 @@ import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
 import kotlin.concurrent.thread
 
-interface Repository {
-
-    fun getUsersFromMainRepository(
-        pageIndex: Int,
-        offset: Int,
-        onSuccess: (List<UserDB>) -> Unit,
-        onFailure: (List<UserDB>) -> Unit
-    )
-
-    fun getUsersDB(offset: Int): List<UserDB>
-
-    fun getUserDB(id: String): UserDB?
-}
-
 class MainRepository private constructor(
     private val networkRepository: NetworkRepository,
     private val databaseRepository: UserDBRepository,
-) : Repository {
-
-    override fun getUsersFromMainRepository(
+) {
+    fun getUsers(
         pageIndex: Int,
         offset: Int,
-        onSuccess: (List<UserDB>) -> Unit,
-        onFailure: (List<UserDB>) -> Unit
+        result: (List<UserDB>) -> Unit
+    ) {
+        getFromNetwork(pageIndex) { usersFromNet ->
+            when {
+                usersFromNet.isNotEmpty() -> result(usersFromNet)
+                usersFromNet.isEmpty() -> getFromDataBase(offset) { result(it) }
+                else -> result(listOf())
+            }
+        }
+    }
+
+    fun getUser(
+        id: String,
+        result: (UserDB) -> Unit
+    ) = thread { result(databaseRepository.getUserDB(id)) }
+
+    private fun getFromNetwork(
+        pageIndex: Int,
+        result: (List<UserDB>) -> Unit
     ) {
         networkRepository.getUsers(
             pageIndex,
@@ -42,21 +44,20 @@ class MainRepository private constructor(
                     databaseRepository.clearDB()
                 }
                 databaseRepository.addUsersDB(users)
-                onSuccess(users)
+                result(users)
+
             }, {
                 Log.d(ContentValues.TAG, "FAILURE LOAD $it")
-
-                thread {
-                    val users = getUsersDB(offset)
-                    onFailure(users)
-                }
+                result(listOf())
             })
     }
 
-    override fun getUsersDB(offset: Int): List<UserDB> =
-        databaseRepository.getUsersDB(PAGE_SIZE, offset)
-
-    override fun getUserDB(id: String): UserDB? = databaseRepository.getUserDB(id)
+    private fun getFromDataBase(
+        offset: Int,
+        result: (List<UserDB>) -> Unit
+    ) {
+        thread { result(databaseRepository.getUsersDB(PAGE_SIZE, offset)) }
+    }
 
     private fun userToUserDB(user: User) = UserDB(
         id = user.id?.uuid.toString(),
@@ -80,4 +81,5 @@ class MainRepository private constructor(
         }
     }
 }
+
 

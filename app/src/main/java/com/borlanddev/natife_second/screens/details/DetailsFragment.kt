@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.DetailsFragnentBinding
+import com.borlanddev.natife_second.helpers.MainRepository
 import com.bumptech.glide.Glide
 
 class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
@@ -18,7 +19,12 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
             DetailsFragnentBinding.inflate(inflater, container, attachToParent)
         }
     private val args: DetailsFragmentArgs by navArgs()
-    override val viewModel: DetailsVM by viewModels { DetailsVMFactory(args.id) }
+    override val viewModel: DetailsVM by viewModels {
+        DetailsVMFactory(
+            args.id,
+            MainRepository.getInstance()
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

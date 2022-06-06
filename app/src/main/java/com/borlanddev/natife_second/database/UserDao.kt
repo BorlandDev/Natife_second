@@ -15,7 +15,7 @@ interface UserDao {
     fun getUsersDB(limit: Int, offset: Int): List<UserDB>
 
     @Query("SELECT * FROM UserDB WHERE id=(:id)")
-    fun getUserDB(id: String): UserDB?
+    fun getUserDB(id: String): UserDB
 
     @Insert
     fun addUsersDB(users: List<UserDB>)

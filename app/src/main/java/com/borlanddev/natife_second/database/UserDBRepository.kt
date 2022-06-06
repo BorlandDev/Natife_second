@@ -8,7 +8,7 @@ class UserDBRepository private constructor(private val userDao: UserDao) {
 
     fun getUsersDB(limit: Int, offset: Int): List<UserDB> = userDao.getUsersDB(limit, offset)
 
-    fun getUserDB(id: String): UserDB? = userDao.getUserDB(id)
+    fun getUserDB(id: String): UserDB = userDao.getUserDB(id)
 
     fun addUsersDB(users: List<UserDB>) = executor.execute { userDao.addUsersDB(users) }
 

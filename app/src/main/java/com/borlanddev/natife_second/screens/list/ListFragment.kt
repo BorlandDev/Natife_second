@@ -12,6 +12,7 @@ import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.adapter.UserAdapter
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.ListFragmentBinding
+import com.borlanddev.natife_second.helpers.MainRepository
 
 class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
 
@@ -20,7 +21,7 @@ class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
             ListFragmentBinding.inflate(inflater, container, attachToParent)
         }
 
-    override val viewModel: ListVM by viewModels()
+    override val viewModel: ListVM by viewModels { ListVMFactory(MainRepository.getInstance()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
