@@ -17,24 +17,6 @@ class MainRepository private constructor(
         offset: Int,
         result: (List<UserDB>) -> Unit
     ) {
-        getFromNetwork(pageIndex) { usersFromNet ->
-            when {
-                usersFromNet.isNotEmpty() -> result(usersFromNet)
-                usersFromNet.isEmpty() -> getFromDataBase(offset) { result(it) }
-                else -> result(listOf())
-            }
-        }
-    }
-
-    fun getUser(
-        id: String,
-        result: (UserDB) -> Unit
-    ) = thread { result(databaseRepository.getUserDB(id)) }
-
-    private fun getFromNetwork(
-        pageIndex: Int,
-        result: (List<UserDB>) -> Unit
-    ) {
         networkRepository.getUsers(
             pageIndex,
             PAGE_SIZE,
@@ -45,19 +27,16 @@ class MainRepository private constructor(
                 }
                 databaseRepository.addUsersDB(users)
                 result(users)
-
             }, {
                 Log.d(ContentValues.TAG, "FAILURE LOAD $it")
-                result(listOf())
+                thread { result(databaseRepository.getUsersDB(PAGE_SIZE, offset)) }
             })
     }
 
-    private fun getFromDataBase(
-        offset: Int,
-        result: (List<UserDB>) -> Unit
-    ) {
-        thread { result(databaseRepository.getUsersDB(PAGE_SIZE, offset)) }
-    }
+    fun getUser(
+        id: String,
+        result: (UserDB) -> Unit
+    ) = thread { result(databaseRepository.getUserDB(id)) }
 
     private fun userToUserDB(user: User) = UserDB(
         id = user.id?.uuid.toString(),
