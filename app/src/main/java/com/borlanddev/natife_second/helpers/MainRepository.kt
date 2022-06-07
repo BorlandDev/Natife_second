@@ -36,7 +36,9 @@ class MainRepository private constructor(
     fun getUser(
         id: String,
         result: (UserDB) -> Unit
-    ) = thread { result(databaseRepository.getUserDB(id)) }
+    ) {
+        thread { result(databaseRepository.getUserDB(id)) }
+    }
 
     private fun userToUserDB(user: User) = UserDB(
         id = user.id?.uuid.toString(),

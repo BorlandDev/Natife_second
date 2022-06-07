@@ -1,5 +1,8 @@
 package com.borlanddev.natife_second.design_pattern
 
+// See MainRepository
+
+
 class FacebookMessenger {
     fun sendMessage(message: String) {}
     fun sendImage(imageId: Int) {}

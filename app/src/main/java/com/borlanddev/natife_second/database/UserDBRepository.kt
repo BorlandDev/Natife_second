@@ -10,9 +10,9 @@ class UserDBRepository private constructor(private val userDao: UserDao) {
 
     fun getUserDB(id: String): UserDB = userDao.getUserDB(id)
 
-    fun addUsersDB(users: List<UserDB>) = executor.execute { userDao.addUsersDB(users) }
+    fun addUsersDB(users: List<UserDB>): Unit = executor.execute { userDao.addUsersDB(users) }
 
-    fun clearDB() = executor.execute { userDao.clearDB() }
+    fun clearDB(): Unit = executor.execute { userDao.clearDB() }
 
     companion object {
         private var INSTANCE: UserDBRepository? = null

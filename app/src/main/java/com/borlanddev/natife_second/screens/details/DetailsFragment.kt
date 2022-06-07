@@ -28,7 +28,6 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.getUserLiveDAta.subscribe {
 
             binding.apply {
@@ -38,7 +37,6 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
                 userEmail.text = getString(R.string.user_email_format, it.email)
                 userLocationDetails.text = it.location
             }
-
             Glide.with(this)
                 .load(it.picture)
                 .placeholder(R.drawable.baseline_account_circle_24)
