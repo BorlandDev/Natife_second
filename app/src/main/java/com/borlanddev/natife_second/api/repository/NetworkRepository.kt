@@ -8,9 +8,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NetworkRepository(private val userApi: UserAPI = RetrofitClient.userAPI) {
+class NetworkRepository(private val userApi: UserAPI = RetrofitClient.userAPI) : NetworkSource {
 
-    fun getUsers(
+    override fun getUsers(
         pageIndex: Int,
         pageSize: Int,
         onSuccess: (List<User>) -> Unit,
