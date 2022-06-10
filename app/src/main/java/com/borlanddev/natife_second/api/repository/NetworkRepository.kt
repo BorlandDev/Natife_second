@@ -1,14 +1,17 @@
 package com.borlanddev.natife_second.api.repository
 
 import com.borlanddev.natife_second.api.endpoint.UserAPI
-import com.borlanddev.natife_second.api.retrofit.RetrofitClient
 import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class NetworkRepository(private val userApi: UserAPI = RetrofitClient.userAPI) : NetworkSource {
+class NetworkRepository @Inject constructor() : NetworkSource {
+
+    @Inject
+    lateinit var userApi: UserAPI
 
     override fun getUsers(
         pageIndex: Int,

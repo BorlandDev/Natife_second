@@ -2,8 +2,12 @@ package com.borlanddev.natife_second.database
 
 import com.borlanddev.natife_second.model.UserDB
 import java.util.concurrent.Executors
+import javax.inject.Inject
 
-class UserDBRepository private constructor(private val userDao: UserDao) : LocalSource {
+class UserDBRepository @Inject constructor() : LocalSource {
+
+    @Inject
+    lateinit var userDao: UserDao
     private val executor = Executors.newSingleThreadExecutor()
 
     override fun getUsersDB(limit: Int, offset: Int): List<UserDB> = userDao.getUsersDB(limit, offset)
@@ -17,8 +21,8 @@ class UserDBRepository private constructor(private val userDao: UserDao) : Local
     companion object {
         private var INSTANCE: UserDBRepository? = null
 
-        fun initialize(userDao: UserDao) {
-            if (INSTANCE == null) INSTANCE = UserDBRepository(userDao)
+        fun initialize() {
+            if (INSTANCE == null) INSTANCE = UserDBRepository()
         }
 
         fun get(): UserDBRepository {

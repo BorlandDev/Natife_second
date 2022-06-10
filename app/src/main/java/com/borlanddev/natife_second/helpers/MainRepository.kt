@@ -8,12 +8,16 @@ import com.borlanddev.natife_second.database.LocalSource
 import com.borlanddev.natife_second.database.UserDBRepository
 import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
+import javax.inject.Inject
 import kotlin.concurrent.thread
 
-class MainRepository private constructor(
-    private val networkSource: NetworkSource,
-    private val localSource: LocalSource,
+class MainRepository @Inject constructor(
+    private var networkSource: NetworkSource,
+    private var localSource: LocalSource,
 ) {
+
+    val app = Application().appComponent.inject(this)
+
     fun getUsers(
         pageIndex: Int,
         offset: Int,

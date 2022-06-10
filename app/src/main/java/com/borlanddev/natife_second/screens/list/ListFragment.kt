@@ -21,10 +21,15 @@ class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
             ListFragmentBinding.inflate(inflater, container, attachToParent)
         }
 
+    //@Inject
+    //lateinit var mainRepository : MainRepository
+
     override val viewModel: ListVM by viewModels { ListVMFactory(MainRepository.getInstance()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+       // requireContext().appComponent.inject(this)
 
         val userAdapter = UserAdapter(onItemClick = {
             val direction = ListFragmentDirections.actionListFragmentToDetailsFragment(it.id)

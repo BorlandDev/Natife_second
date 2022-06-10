@@ -7,7 +7,7 @@ import com.borlanddev.natife_second.helpers.MainRepository
 import com.borlanddev.natife_second.helpers.PAGE_SIZE
 import com.borlanddev.natife_second.model.UserDB
 
-class ListVM(
+class ListVM (
     private val mainRepository: MainRepository
 ) : ViewModel() {
     private val _userListLiveData = MutableLiveData<List<UserDB>>(listOf())
