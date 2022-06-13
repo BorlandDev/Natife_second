@@ -8,7 +8,7 @@ import com.borlanddev.natife_second.helpers.PAGE_SIZE
 import com.borlanddev.natife_second.model.UserDB
 import javax.inject.Inject
 
-class ListVM @Inject constructor(
+class ListVM (
     val mainRepository: MainRepository
 ) : ViewModel() {
     private val _userListLiveData = MutableLiveData<List<UserDB>>(listOf())

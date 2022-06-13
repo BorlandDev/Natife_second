@@ -12,7 +12,6 @@ import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.adapter.UserAdapter
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.ListFragmentBinding
-import com.borlanddev.natife_second.helpers.Application
 import com.borlanddev.natife_second.helpers.MainRepository
 import com.borlanddev.natife_second.helpers.appComponent
 import javax.inject.Inject

@@ -33,7 +33,7 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
     lateinit var factory: DetailsVMFactory.Factory
 
     override fun onAttach(context: Context) {
-        context.appComponent.inject(this)
+        context.applicationContext.appComponent.inject(this)
         super.onAttach(context)
     }
 

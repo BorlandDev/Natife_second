@@ -8,10 +8,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class NetworkRepository : NetworkSource {
-
-    @Inject
-    lateinit var userApi: UserAPI
+class NetworkRepository @Inject constructor(
+    private val userApi: UserAPI
+) : NetworkSource {
 
     override fun getUsers(
         pageIndex: Int,

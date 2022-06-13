@@ -4,10 +4,10 @@ import com.borlanddev.natife_second.model.UserDB
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-class UserDBRepository : LocalSource {
+class UserDBRepository @Inject constructor(
+    private val userDao: UserDao
+) : LocalSource {
 
-    @Inject
-    lateinit var userDao: UserDao
     private val executor = Executors.newSingleThreadExecutor()
 
     override fun getUsersDB(limit: Int, offset: Int): List<UserDB> =
