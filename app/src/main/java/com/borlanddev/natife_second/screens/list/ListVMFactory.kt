@@ -3,9 +3,10 @@ package com.borlanddev.natife_second.screens.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.borlanddev.natife_second.helpers.MainRepository
+import javax.inject.Inject
 
-class ListVMFactory(
-    private val mainRepository: MainRepository
+class ListVMFactory @Inject constructor(
+    val mainRepository: MainRepository
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

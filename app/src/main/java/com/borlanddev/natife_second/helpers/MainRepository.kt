@@ -2,22 +2,17 @@ package com.borlanddev.natife_second.helpers
 
 import android.content.ContentValues
 import android.util.Log
-import com.borlanddev.natife_second.api.repository.NetworkRepository
 import com.borlanddev.natife_second.api.repository.NetworkSource
 import com.borlanddev.natife_second.database.LocalSource
-import com.borlanddev.natife_second.database.UserDBRepository
 import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
 import javax.inject.Inject
 import kotlin.concurrent.thread
 
 class MainRepository @Inject constructor(
-    private var networkSource: NetworkSource,
-    private var localSource: LocalSource,
+    private val networkSource: NetworkSource,
+    private val localSource: LocalSource,
 ) {
-
-    val app = Application().appComponent.inject(this)
-
     fun getUsers(
         pageIndex: Int,
         offset: Int,
@@ -55,18 +50,5 @@ class MainRepository @Inject constructor(
         name = "${user.name?.title} ${user.name?.first} ${user.name?.last}",
         location = " ${user.location?.country} \n ${user.location?.state} \n ${user.location?.city}"
     )
-
-    companion object {
-        @Volatile
-        private var INSTANCE: MainRepository? = null
-
-        fun getInstance() = INSTANCE ?: synchronized(this) {
-            INSTANCE ?: MainRepository(
-                NetworkRepository(),
-                UserDBRepository.get()
-            ).also { INSTANCE = it }
-        }
-    }
 }
-
 

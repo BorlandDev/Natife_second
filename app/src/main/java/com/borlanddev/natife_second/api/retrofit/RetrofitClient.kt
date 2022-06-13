@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
+    // сделать DI ?
     private var retrofit: Retrofit? = null
 
     val userAPI: UserAPI

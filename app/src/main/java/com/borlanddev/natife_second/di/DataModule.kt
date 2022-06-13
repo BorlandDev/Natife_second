@@ -1,5 +1,6 @@
 package com.borlanddev.natife_second.di
 
+import android.content.Context
 import androidx.room.Room
 import com.borlanddev.natife_second.api.endpoint.UserAPI
 import com.borlanddev.natife_second.api.repository.NetworkRepository
@@ -9,23 +10,26 @@ import com.borlanddev.natife_second.database.LocalSource
 import com.borlanddev.natife_second.database.UserDBRepository
 import com.borlanddev.natife_second.database.UserDao
 import com.borlanddev.natife_second.database.UserDatabase
-import com.borlanddev.natife_second.helpers.Application
 import com.borlanddev.natife_second.helpers.DATABASE_NAME
 import com.borlanddev.natife_second.helpers.MainRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module
-class DataModule {
+@Module()
+class DataModule() {
 
     @Provides
-    fun provideUserApi(retrofit: RetrofitClient): UserAPI = retrofit.userAPI
+    fun provideNetworkSource(): NetworkRepository = NetworkRepository()
 
     @Provides
-    fun provideDataBase(): UserDatabase {
-        val context = Application().applicationContext
+    fun provideUserApi(): UserAPI = RetrofitClient.userAPI
 
+    @Provides
+    fun provideUserDBRepository(): UserDBRepository = UserDBRepository.get()
+
+    @Provides
+    fun provideDataBase(context: Context): UserDatabase {
         return Room.databaseBuilder(
             context,
             UserDatabase::class.java,
@@ -35,24 +39,6 @@ class DataModule {
 
     @Provides
     fun provideUserDao(database: UserDatabase): UserDao = database.userDao()
-
-    @Provides
-    fun provideNetworkSource(): NetworkSource = NetworkRepository()
-
-    @Provides
-    fun provideLocalSource(): LocalSource = UserDBRepository.get()
-
-
-  @Provides
-  fun provideMainRepository(
-      networkSource: NetworkSource,
-      localSource: LocalSource
-  ): MainRepository {
-      return MainRepository(
-          networkSource,
-          localSource
-      )
-  }
 }
 
 @Module
@@ -62,6 +48,8 @@ interface DataBindingsModule {
     fun bindNetworkSource(networkRepository: NetworkRepository): NetworkSource
 
     @Binds
-    fun bindLocalSource(localRepository: UserDBRepository): LocalSource
-
+    fun bindLocalSource(userDBRepository: UserDBRepository): LocalSource
 }
+
+
+

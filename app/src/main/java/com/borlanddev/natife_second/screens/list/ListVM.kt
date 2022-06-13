@@ -6,9 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.borlanddev.natife_second.helpers.MainRepository
 import com.borlanddev.natife_second.helpers.PAGE_SIZE
 import com.borlanddev.natife_second.model.UserDB
+import javax.inject.Inject
 
-class ListVM (
-    private val mainRepository: MainRepository
+class ListVM @Inject constructor(
+    val mainRepository: MainRepository
 ) : ViewModel() {
     private val _userListLiveData = MutableLiveData<List<UserDB>>(listOf())
     val userListLiveData: LiveData<List<UserDB>> = _userListLiveData

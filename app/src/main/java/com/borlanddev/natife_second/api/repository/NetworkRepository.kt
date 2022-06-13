@@ -8,7 +8,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class NetworkRepository @Inject constructor() : NetworkSource {
+class NetworkRepository : NetworkSource {
 
     @Inject
     lateinit var userApi: UserAPI

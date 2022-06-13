@@ -1,29 +1,33 @@
 package com.borlanddev.natife_second.helpers
 
 import android.app.Application
-import com.borlanddev.natife_second.database.UserDBRepository
+import android.content.Context
 import com.borlanddev.natife_second.database.UserDatabase
 import com.borlanddev.natife_second.di.AppComponent
 import com.borlanddev.natife_second.di.DaggerAppComponent
+import com.borlanddev.natife_second.di.DaggerDataComponent
+import javax.inject.Inject
 
 class Application : Application() {
 
     lateinit var appComponent: AppComponent
+        private set
+
+    @Inject
     lateinit var database: UserDatabase
 
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.builder()
-           .dataComponent(DaggerDataComponent.create())
-           .build()
-
-        UserDBRepository.initialize()
+            .dataComponent(
+                DaggerDataComponent.builder()
+                    .context(this)
+                    .build()
+            )
+            .build()
     }
 }
 
-//
-//val Context.appComponent: AppComponent
-//    get() = when (this) {
-//        is com.borlanddev.natife_second.helpers.Application -> appComponent
-//        else -> this.applicationContext.appComponent
-//    }
+
+val Context.appComponent: AppComponent
+    get() = this.applicationContext.appComponent
