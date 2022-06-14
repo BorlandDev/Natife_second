@@ -12,8 +12,9 @@ import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.adapter.UserAdapter
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.ListFragmentBinding
-import com.borlanddev.natife_second.helpers.MainRepository
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
 
     override val bindingInflation =
@@ -21,8 +22,7 @@ class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
             ListFragmentBinding.inflate(inflater, container, attachToParent)
         }
 
-    override val viewModel: ListVM by viewModels { ListVMFactory(MainRepository.getInstance()) }
-
+    override val viewModel: ListVM by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

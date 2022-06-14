@@ -4,13 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.borlanddev.natife_second.helpers.MainRepository
 import com.borlanddev.natife_second.model.UserDB
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DetailsVM(
-    private val id: String,
+@HiltViewModel
+class DetailsVM @Inject constructor(
     private val mainRepository: MainRepository
 ) : ViewModel() {
     private val _getUserLiveData = MutableLiveData<UserDB>()
     val getUserLiveDAta = _getUserLiveData
+
+    lateinit var id: String
 
     fun getUser() {
         mainRepository.getUser(id) {

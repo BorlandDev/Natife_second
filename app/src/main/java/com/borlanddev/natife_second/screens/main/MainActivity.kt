@@ -6,7 +6,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.borlanddev.natife_second.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var navController: NavController? = null
@@ -22,5 +24,4 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean =
         (navController?.navigateUp() ?: false) || super.onSupportNavigateUp()
-
 }
