@@ -8,6 +8,8 @@ import com.borlanddev.natife_second.screens.list.ListFragment
 import dagger.BindsInstance
 import dagger.Component
 
+// Нужеы ли тут Scope и SubComponents ? А так же разбить комопоненты на отдельные файлы ?
+
 @Component(
     dependencies = [
         DataComponent::class]
