@@ -29,8 +29,9 @@ interface DataComponent {
     val networkSource: NetworkSource
     val localSource: LocalSource
 
+    // or Factory ?
     @Component.Builder
-    interface Builder {
+    interface Builder { 
 
         @BindsInstance
         fun context(context: Context): Builder
