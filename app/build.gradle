@@ -37,15 +37,11 @@ android {
 }
 
 dependencies {
-    def nav_version = "2.4.2"
-    def retrofit_version = "2.9.0"
-    def okhttp_version = '5.0.0-alpha.7'
-    def paging_version = "3.1.1"
 
     // Standard dependencies
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.core:core-ktx:1.9.0-alpha04'
+    implementation 'androidx.appcompat:appcompat:1.6.0-alpha04'
+    implementation 'com.google.android.material:material:1.7.0-alpha02'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Tests
@@ -63,7 +59,7 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.8'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // Storage
@@ -74,9 +70,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     kapt 'com.github.bumptech.glide:compiler:4.13.2'
 
-    // Paging library v3
-    implementation "androidx.paging:paging-runtime:$paging_version"
-
     // Pull-to-refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // Koin
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-androidx-navigation:$koin_version"
 }

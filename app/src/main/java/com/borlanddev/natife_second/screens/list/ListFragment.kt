@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +11,7 @@ import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.adapter.UserAdapter
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.ListFragmentBinding
-import com.borlanddev.natife_second.helpers.MainRepository
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
 
@@ -21,7 +20,7 @@ class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
             ListFragmentBinding.inflate(inflater, container, attachToParent)
         }
 
-    override val viewModel: ListVM by viewModels { ListVMFactory(MainRepository.getInstance()) }
+    override val viewModel: ListVM by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
