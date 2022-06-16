@@ -1,16 +1,16 @@
 package com.borlanddev.natife_second.screens.details
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.DetailsFragnentBinding
-import com.borlanddev.natife_second.helpers.MainRepository
 import com.bumptech.glide.Glide
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
 
@@ -18,12 +18,14 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
         { inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean ->
             DetailsFragnentBinding.inflate(inflater, container, attachToParent)
         }
+
     private val args: DetailsFragmentArgs by navArgs()
-    override val viewModel: DetailsVM by viewModels {
-        DetailsVMFactory(
-            args.id,
-            MainRepository.getInstance()
-        )
+    override val viewModel: DetailsVM by viewModel()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        viewModel.id = args.id
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
