@@ -7,7 +7,5 @@ interface NetworkSource {
     fun getUsers(
         pageIndex: Int,
         pageSize: Int,
-        onSuccess: (List<User>) -> Unit,
-        onFailure: (msg: String) -> Unit
-    )
+    ) : Result<List<User>>
 }
