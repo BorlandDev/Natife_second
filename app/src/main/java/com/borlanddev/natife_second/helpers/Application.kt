@@ -1,21 +1,27 @@
 package com.borlanddev.natife_second.helpers
 
 import android.app.Application
-import androidx.room.Room
-import com.borlanddev.natife_second.database.UserDBRepository
-import com.borlanddev.natife_second.database.UserDatabase
+import android.content.Context
+import com.borlanddev.natife_second.di.AppComponent
+import com.borlanddev.natife_second.di.DaggerAppComponent
+import com.borlanddev.natife_second.di.DaggerDataComponent
 
 class Application : Application() {
 
+    lateinit var appComponent: AppComponent
+        private set
+
     override fun onCreate() {
         super.onCreate()
-        val database = Room.databaseBuilder(
-            this,
-            UserDatabase::class.java,
-            DATABASE_NAME
-        )
+        appComponent = DaggerAppComponent.builder()
+            .dataComponent(
+                DaggerDataComponent.builder()
+                    .context(this)
+                    .build()
+            )
             .build()
-
-        UserDBRepository.initialize(database.userDao())
     }
 }
+
+val Context.appComponent: AppComponent
+    get() = (this.applicationContext as com.borlanddev.natife_second.helpers.Application).appComponent

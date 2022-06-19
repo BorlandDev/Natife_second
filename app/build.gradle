@@ -18,6 +18,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -41,11 +47,12 @@ dependencies {
     def retrofit_version = "2.9.0"
     def okhttp_version = '5.0.0-alpha.7'
     def paging_version = "3.1.1"
+    def dagger_version = "2.42"
 
     // Standard dependencies
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Tests
@@ -79,4 +86,8 @@ dependencies {
 
     // Pull-to-refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // Dagger 2
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
 }

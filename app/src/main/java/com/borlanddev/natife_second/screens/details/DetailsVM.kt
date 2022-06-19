@@ -9,6 +9,7 @@ class DetailsVM(
     private val id: String,
     private val mainRepository: MainRepository
 ) : ViewModel() {
+
     private val _getUserLiveData = MutableLiveData<UserDB>()
     val getUserLiveDAta = _getUserLiveData
 
@@ -18,3 +19,7 @@ class DetailsVM(
         }
     }
 }
+
+
+
+
