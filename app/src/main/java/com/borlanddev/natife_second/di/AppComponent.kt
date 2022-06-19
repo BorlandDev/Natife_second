@@ -5,6 +5,7 @@ import com.borlanddev.natife_second.api.repository.NetworkSource
 import com.borlanddev.natife_second.database.LocalSource
 import com.borlanddev.natife_second.screens.details.DetailsFragment
 import com.borlanddev.natife_second.screens.list.ListFragment
+import com.borlanddev.natife_second.screens.list.ListVMFactory
 import dagger.BindsInstance
 import dagger.Component
 
@@ -18,12 +19,14 @@ interface AppComponent {
 
     fun inject(listFragment: ListFragment)
     fun inject(detailsFragment: DetailsFragment)
+    fun listVMFactory(): ListVMFactory
+
 }
 
 @Component(
     modules = [
         DataModule::class,
-        DataBindingsModule::class
+        DataBindingsModule::class,
     ]
 )
 interface DataComponent {
@@ -33,7 +36,7 @@ interface DataComponent {
 
     // or Factory ?
     @Component.Builder
-    interface Builder { 
+    interface Builder {
 
         @BindsInstance
         fun context(context: Context): Builder

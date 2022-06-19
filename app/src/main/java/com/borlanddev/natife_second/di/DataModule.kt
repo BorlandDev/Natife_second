@@ -53,6 +53,3 @@ interface DataBindingsModule {
     @Binds
     fun bindLocalSource(userDBRepository: UserDBRepository): LocalSource
 }
-
-
-

@@ -2,17 +2,17 @@ package com.borlanddev.natife_second.screens.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.borlanddev.natife_second.helpers.MainRepository
 import javax.inject.Inject
+import javax.inject.Provider
 
 class ListVMFactory @Inject constructor(
-    val mainRepository: MainRepository
+    listVMProvider: Provider<ListVM>
 ) : ViewModelProvider.Factory {
+    private val providers = mapOf<Class<*>, Provider<out ViewModel>>(
+        ListVM::class.java to listVMProvider
+    )
 
-    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ListVM(mainRepository) as T
+        return providers[modelClass]!!.get() as T
     }
 }
-
-
