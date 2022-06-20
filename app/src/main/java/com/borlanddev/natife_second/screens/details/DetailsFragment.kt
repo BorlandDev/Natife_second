@@ -11,6 +11,7 @@ import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.DetailsFragnentBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
@@ -22,16 +23,12 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
 
     private val args: DetailsFragmentArgs by navArgs()
 
-    override val viewModel: DetailsVM by lazy {
-        val viewModel: DetailsVM by viewModels()
-        viewModel.id = args.id
-        viewModel
+    @Inject
+    lateinit var factory: DetailsVMFactory.Factory
+
+    override val viewModel: DetailsVM by viewModels {
+        factory.create(args.id)
     }
-    /* или вот так
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel.id = args.id
-    } */
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
