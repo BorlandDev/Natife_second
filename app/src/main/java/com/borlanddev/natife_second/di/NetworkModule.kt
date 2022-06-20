@@ -8,8 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
 
-    // or single ?
-    factory<UserAPI> {
+    single<UserAPI> {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

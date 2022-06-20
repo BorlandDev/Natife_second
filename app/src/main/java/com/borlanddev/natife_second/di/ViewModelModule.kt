@@ -8,15 +8,16 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
-    viewModel<ListVM> {
+    viewModel {
         ListVM(
             mainRepository = get()
         )
     }
 
-    viewModel<DetailsVM> {
+    viewModel { params ->
         DetailsVM(
-            mainRepository = get()
+            mainRepository = get(),
+            id = params.get()
         )
     }
 }

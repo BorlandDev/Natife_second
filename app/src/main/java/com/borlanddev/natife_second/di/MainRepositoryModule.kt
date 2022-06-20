@@ -9,22 +9,20 @@ import org.koin.dsl.module
 
 val mainRepositoryModule = module {
 
-    single<MainRepository> {
+    single {
         MainRepository(
             networkSource = get(),
             localSource = get()
         )
     }
 
-    // or single ?
-    factory<NetworkSource> {
+    single<NetworkSource> {
         NetworkRepository(
             userApi = get()
         )
     }
 
-    // or single ?
-    factory<LocalSource> {
+    single<LocalSource> {
         UserDBRepository(
             userDao = get()
         )

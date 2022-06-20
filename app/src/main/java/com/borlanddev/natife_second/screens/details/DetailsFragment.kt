@@ -1,6 +1,5 @@
 package com.borlanddev.natife_second.screens.details
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,8 @@ import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.DetailsFragnentBinding
 import com.bumptech.glide.Glide
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
 
@@ -20,12 +20,7 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
         }
 
     private val args: DetailsFragmentArgs by navArgs()
-    override val viewModel: DetailsVM by viewModel()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel.id = args.id
-    }
+    override val viewModel: DetailsVM by inject { parametersOf(args.id) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

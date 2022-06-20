@@ -7,13 +7,12 @@ import com.borlanddev.natife_second.model.UserDB
 import java.util.concurrent.Executors
 
 class DetailsVM(
-    private val mainRepository: MainRepository
+    private val mainRepository: MainRepository,
+    private val id: String
 ) : ViewModel() {
     private val executor = Executors.newSingleThreadExecutor()
     private val _getUserLiveData = MutableLiveData<UserDB>()
     val getUserLiveDAta = _getUserLiveData
-
-    lateinit var id: String
 
     fun getUser() {
         executor.execute {
