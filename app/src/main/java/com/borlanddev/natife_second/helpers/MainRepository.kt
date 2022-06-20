@@ -6,7 +6,6 @@ import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.concurrent.thread
 
 @Singleton
 class MainRepository @Inject constructor(
@@ -33,7 +32,7 @@ class MainRepository @Inject constructor(
         }
     }
 
-    fun getUser(id: String): UserDB  = localSource.getUserDB(id)
+    fun getUser(id: String): UserDB = localSource.getUserDB(id)
 
     private fun userToUserDB(user: User) = UserDB(
         id = user.id?.uuid.toString(),
