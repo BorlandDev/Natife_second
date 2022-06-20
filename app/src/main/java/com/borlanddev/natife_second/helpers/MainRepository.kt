@@ -5,7 +5,9 @@ import com.borlanddev.natife_second.database.LocalSource
 import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MainRepository @Inject constructor(
     private val networkSource: NetworkSource,
     private val localSource: LocalSource,

@@ -3,7 +3,9 @@ package com.borlanddev.natife_second.api.repository
 import com.borlanddev.natife_second.api.endpoint.UserAPI
 import com.borlanddev.natife_second.model.User
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class NetworkRepository @Inject constructor(
     private val userApi: UserAPI
 ) : NetworkSource {

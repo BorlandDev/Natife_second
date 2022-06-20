@@ -3,7 +3,9 @@ package com.borlanddev.natife_second.database
 import com.borlanddev.natife_second.model.UserDB
 import java.util.concurrent.Executors
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class UserDBRepository @Inject constructor(
     private val userDao: UserDao
 ) : LocalSource {

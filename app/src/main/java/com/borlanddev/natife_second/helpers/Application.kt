@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import com.borlanddev.natife_second.di.AppComponent
 import com.borlanddev.natife_second.di.DaggerAppComponent
-import com.borlanddev.natife_second.di.DaggerDataComponent
 
 class Application : Application() {
 
@@ -13,13 +12,9 @@ class Application : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.builder()
-            .dataComponent(
-                DaggerDataComponent.builder()
-                    .context(this)
-                    .build()
-            )
-            .build()
+        appComponent = DaggerAppComponent
+            .factory()
+            .create(context = this)
     }
 }
 

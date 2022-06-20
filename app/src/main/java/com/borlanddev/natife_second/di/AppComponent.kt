@@ -8,40 +8,30 @@ import com.borlanddev.natife_second.screens.list.ListFragment
 import com.borlanddev.natife_second.screens.list.ListVMFactory
 import dagger.BindsInstance
 import dagger.Component
-
-// Нужеы ли тут Scope и SubComponents ? А так же разбить комопоненты на отдельные файлы ?
+import javax.inject.Singleton
 
 @Component(
-    dependencies = [
-        DataComponent::class]
+    modules = [
+        DataModule::class,
+        DataBindingsModule::class
+    ]
 )
+@Singleton
 interface AppComponent {
 
     fun inject(listFragment: ListFragment)
     fun inject(detailsFragment: DetailsFragment)
     fun listVMFactory(): ListVMFactory
+    fun networkSource(): NetworkSource
+    fun localSource(): LocalSource
 
-}
+    @Component.Factory
+    interface Factory {
 
-@Component(
-    modules = [
-        DataModule::class,
-        DataBindingsModule::class,
-    ]
-)
-interface DataComponent {
-
-    val networkSource: NetworkSource
-    val localSource: LocalSource
-
-    // or Factory ?
-    @Component.Builder
-    interface Builder {
-
-        @BindsInstance
-        fun context(context: Context): Builder
-
-        fun build(): DataComponent
+        fun create(
+            @BindsInstance context: Context
+        ): AppComponent
     }
 }
+
 

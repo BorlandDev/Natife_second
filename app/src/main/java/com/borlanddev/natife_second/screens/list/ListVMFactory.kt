@@ -6,13 +6,10 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class ListVMFactory @Inject constructor(
-    listVMProvider: Provider<ListVM>
+    private val listVMProvider: Provider<ListVM>
 ) : ViewModelProvider.Factory {
-    private val providers = mapOf<Class<*>, Provider<out ViewModel>>(
-        ListVM::class.java to listVMProvider
-    )
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return providers[modelClass]!!.get() as T
+        return listVMProvider.get() as T
     }
 }

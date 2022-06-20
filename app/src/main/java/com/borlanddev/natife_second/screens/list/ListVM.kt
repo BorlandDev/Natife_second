@@ -47,7 +47,6 @@ class ListVM @Inject constructor(
                     Log.e("ListVM", "Error", it)
                     //TODO show error message
                 })
-
         }
     }
 

@@ -16,6 +16,7 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 class DataModule {
@@ -47,9 +48,11 @@ class DataModule {
 @Module
 interface DataBindingsModule {
 
+    @Singleton
     @Binds
     fun bindNetworkSource(networkRepository: NetworkRepository): NetworkSource
 
+    @Singleton
     @Binds
     fun bindLocalSource(userDBRepository: UserDBRepository): LocalSource
 }
