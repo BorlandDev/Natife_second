@@ -33,9 +33,7 @@ class MainRepository @Inject constructor(
         }
     }
 
-    fun getUser(id: String, result: (UserDB) -> Unit) {
-        thread { result(localSource.getUserDB(id)) }
-    }
+    fun getUser(id: String): UserDB  = localSource.getUserDB(id)
 
     private fun userToUserDB(user: User) = UserDB(
         id = user.id?.uuid.toString(),
