@@ -52,6 +52,7 @@ class ListVM @Inject constructor(
     }
 
     override fun onCleared() {
+        super.onCleared()
         pageExecutor.shutdownNow()
     }
 

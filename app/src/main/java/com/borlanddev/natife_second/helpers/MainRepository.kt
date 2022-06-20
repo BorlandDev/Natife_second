@@ -5,7 +5,6 @@ import com.borlanddev.natife_second.database.LocalSource
 import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
 import javax.inject.Inject
-import kotlin.concurrent.thread
 
 class MainRepository @Inject constructor(
     private val networkSource: NetworkSource,
@@ -31,13 +30,7 @@ class MainRepository @Inject constructor(
         }
     }
 
-
-    fun getUser(
-        id: String,
-        result: (UserDB) -> Unit
-    ) {
-        thread { result(localSource.getUserDB(id)) }
-    }
+    fun getUser(id: String): UserDB = localSource.getUserDB(id)
 
     private fun userToUserDB(user: User) = UserDB(
         id = user.id?.uuid.toString(),

@@ -21,12 +21,4 @@ class UserDBRepository @Inject constructor(
 
     override fun clearDB(): Unit =
         executor.execute { userDao.clearDB() }
-
-    companion object {
-        private var INSTANCE: UserDBRepository? = null
-
-        fun get(): UserDBRepository {
-            return INSTANCE ?: throw IllegalStateException("UserDBRepository must be initialized")
-        }
-    }
 }
