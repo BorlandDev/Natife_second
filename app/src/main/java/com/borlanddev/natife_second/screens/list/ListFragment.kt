@@ -13,6 +13,7 @@ import com.borlanddev.natife_second.adapter.UserAdapter
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.ListFragmentBinding
 import com.borlanddev.natife_second.helpers.appComponent
+import javax.inject.Inject
 
 class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
 
@@ -21,12 +22,14 @@ class ListFragment : BaseFragment<ListVM, ListFragmentBinding>() {
             ListFragmentBinding.inflate(inflater, container, attachToParent)
         }
 
-    override val viewModel: ListVM by viewModels {
-        requireContext().appComponent.listVMFactory()
-    }
+    @Inject
+    lateinit var factory: ListVMFactory
+
+    override val viewModel: ListVM by viewModels { factory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireContext().appComponent.inject(this)
 
         val userAdapter = UserAdapter(onItemClick = {
             val direction = ListFragmentDirections.actionListFragmentToDetailsFragment(it.id)

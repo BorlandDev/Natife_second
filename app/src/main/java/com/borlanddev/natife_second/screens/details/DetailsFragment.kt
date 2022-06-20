@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.borlanddev.natife_second.R
 import com.borlanddev.natife_second.base.BaseFragment
 import com.borlanddev.natife_second.databinding.DetailsFragnentBinding
-import com.borlanddev.natife_second.helpers.MainRepository
 import com.borlanddev.natife_second.helpers.appComponent
 import com.bumptech.glide.Glide
 import javax.inject.Inject
@@ -22,8 +21,6 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
             DetailsFragnentBinding.inflate(inflater, container, attachToParent)
         }
 
-    @Inject
-    lateinit var mainRepository: MainRepository
     private val args: DetailsFragmentArgs by navArgs()
     override val viewModel: DetailsVM by viewModels {
         factory.create(args.id)
