@@ -4,7 +4,6 @@ import com.borlanddev.natife_second.api.repository.NetworkSource
 import com.borlanddev.natife_second.database.LocalSource
 import com.borlanddev.natife_second.model.User
 import com.borlanddev.natife_second.model.UserDB
-import kotlin.concurrent.thread
 
 class MainRepository(
     private val networkSource: NetworkSource,
@@ -29,9 +28,8 @@ class MainRepository(
         }
     }
 
-    fun getUser(id: String, result: (UserDB) -> Unit) {
-        thread { result(localSource.getUserDB(id)) }
-    }
+    fun getUser(id: String): UserDB = localSource.getUserDB(id)
+
 
     private fun userToUserDB(user: User) = UserDB(
         id = user.id?.uuid.toString(),

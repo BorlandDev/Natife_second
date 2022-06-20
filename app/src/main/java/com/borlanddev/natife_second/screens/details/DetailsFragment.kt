@@ -24,7 +24,6 @@ class DetailsFragment : BaseFragment<DetailsVM, DetailsFragnentBinding>() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         viewModel.id = args.id
     }
 

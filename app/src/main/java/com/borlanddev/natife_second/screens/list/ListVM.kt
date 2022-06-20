@@ -50,6 +50,7 @@ class ListVM(
     }
 
     override fun onCleared() {
+        super.onCleared()
         pageExecutor.shutdownNow()
     }
 
